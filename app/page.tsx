@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import LoadingScreen from "@/components/LoadingScreen";
 import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
@@ -14,29 +15,47 @@ import WhyProMaxSection from "@/components/WhyProMaxSection";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
 
+function SectionDivider() {
+  return (
+    <div className="relative py-1 overflow-hidden">
+      <motion.div
+        className="h-px"
+        style={{
+          background:
+            "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.06) 30%, rgba(59,130,246,0.15) 50%, rgba(255,255,255,0.06) 70%, transparent 100%)",
+        }}
+        initial={{ scaleX: 0 }}
+        whileInView={{ scaleX: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+      />
+    </div>
+  );
+}
+
 export default function Home() {
   return (
-    <main className="bg-black min-h-screen">
+    <main className="bg-black min-h-screen overflow-x-hidden">
       <LoadingScreen />
       <Navigation />
       <HeroSection />
-      <div className="section-divider" />
+      <SectionDivider />
       <HowItWorksSection />
-      <div className="section-divider" />
+      <SectionDivider />
       <CameraSection />
-      <div className="section-divider" />
+      <SectionDivider />
       <PerformanceSection />
-      <div className="section-divider" />
+      <SectionDivider />
       <DisplaySection />
-      <div className="section-divider" />
+      <SectionDivider />
       <BatterySection />
-      <div className="section-divider" />
+      <SectionDivider />
       <SpecsSection />
-      <div className="section-divider" />
+      <SectionDivider />
       <PriceSection />
-      <div className="section-divider" />
+      <SectionDivider />
       <WhyProMaxSection />
-      <div className="section-divider" />
+      <SectionDivider />
       <FinalCTA />
       <Footer />
     </main>

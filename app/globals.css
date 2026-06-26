@@ -86,6 +86,34 @@ body {
 
 .pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
 
+/* Blur-to-sharp reveal */
+@keyframes blurReveal {
+  from { opacity: 0; filter: blur(12px); transform: translateY(30px); }
+  to { opacity: 1; filter: blur(0); transform: translateY(0); }
+}
+.blur-reveal {
+  animation: blurReveal 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Clip path reveal */
+@keyframes clipReveal {
+  from { clip-path: inset(0 0 100% 0); }
+  to { clip-path: inset(0 0 0% 0); }
+}
+.clip-reveal {
+  animation: clipReveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Performance hint for animated elements */
+.motion-element {
+  will-change: transform, opacity;
+}
+
+/* Smooth section entry */
+section {
+  contain: layout style;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
