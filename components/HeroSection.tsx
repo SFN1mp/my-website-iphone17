@@ -12,6 +12,59 @@ import { heroData } from "@/data/iphone17ProMax";
 import PhoneModel from "./PhoneModel";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
+/* ─── animated text helpers ────────────────────────────────── */
+function SplitTitle({ text, className }: { text: string; className?: string }) {
+  return (
+    <span className={className} aria-label={text} style={{ display: "block" }}>
+      {text.split("").map((char, i) => (
+        <motion.span
+          key={i}
+          style={{ display: char === " " ? "inline" : "inline-block" }}
+          initial={{ opacity: 0, y: 60, rotateX: -80, filter: "blur(12px)" }}
+          animate={{ opacity: 1, y: 0, rotateX: 0, filter: "blur(0px)" }}
+          transition={{
+            delay: 0.3 + i * 0.035,
+            duration: 0.65,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+        >
+          {char === " " ? " " : char}
+        </motion.span>
+      ))}
+    </span>
+  );
+}
+
+function AnimatedWords({
+  text,
+  className,
+  delay = 0,
+}: {
+  text: string;
+  className?: string;
+  delay?: number;
+}) {
+  return (
+    <span className={className} aria-label={text} style={{ display: "block" }}>
+      {text.split(" ").map((word, i) => (
+        <motion.span
+          key={i}
+          style={{ display: "inline-block", marginRight: "0.35em" }}
+          initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{
+            delay: delay + i * 0.07,
+            duration: 0.55,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+        >
+          {word}
+        </motion.span>
+      ))}
+    </span>
+  );
+}
+
 /* ─── background particles ─────────────────────────────────── */
 function Particle({ x, y, color, delay }: { x: string; y: string; color: string; delay: number }) {
   return (
@@ -176,26 +229,17 @@ export default function HeroSection() {
               </span>
             </motion.div>
 
-            <motion.h1 className="text-hero gradient-text mb-6"
-              initial={{ opacity:0, y:50, filter:"blur(14px)" }}
-              animate={{ opacity:1, y:0, filter:"blur(0px)" }}
-              transition={{ duration:1.1, delay:0.35, ease:[0.22,1,0.36,1] }}>
-              {heroData.title}
-            </motion.h1>
+            <h1 className="text-hero gradient-text mb-6" style={{ perspective: "600px" }}>
+              <SplitTitle text={heroData.title} />
+            </h1>
 
-            <motion.p className="text-subsection text-white/55 mb-3 max-w-lg mx-auto lg:mx-0"
-              initial={{ opacity:0, y:30, filter:"blur(8px)" }}
-              animate={{ opacity:1, y:0, filter:"blur(0px)" }}
-              transition={{ duration:0.9, delay:0.5, ease:[0.22,1,0.36,1] }}>
-              {heroData.subtitle}
-            </motion.p>
+            <p className="text-subsection text-white/55 mb-3 max-w-lg mx-auto lg:mx-0">
+              <AnimatedWords text={heroData.subtitle} delay={0.75} />
+            </p>
 
-            <motion.p className="text-white/35 text-lg mb-10 max-w-md mx-auto lg:mx-0 leading-relaxed"
-              initial={{ opacity:0, y:20 }}
-              animate={{ opacity:1, y:0 }}
-              transition={{ duration:0.8, delay:0.65, ease:[0.22,1,0.36,1] }}>
-              {heroData.description}
-            </motion.p>
+            <p className="text-white/35 text-lg mb-10 max-w-md mx-auto lg:mx-0 leading-relaxed">
+              <AnimatedWords text={heroData.description} delay={1.05} />
+            </p>
 
             {/* CTAs */}
             <motion.div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
