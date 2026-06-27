@@ -42,7 +42,7 @@ function LightStreak({ angle, delay, color }: { angle: number; delay: number; co
 }
 
 export default function HeroSection() {
-  /* The outer wrapper is tall (250vh) so scroll happens INSIDE it
+  /* The outer wrapper is tall (170vh) so scroll happens INSIDE it
      while the inner content stays sticky at the top of the viewport. */
   const wrapperRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
@@ -92,7 +92,7 @@ export default function HeroSection() {
 
   return (
     /* ── tall wrapper enables scroll-while-sticky ── */
-    <div ref={wrapperRef} style={{ height: "250vh" }} aria-label="Hero секция">
+    <div ref={wrapperRef} style={{ height: "170vh" }} aria-label="Hero секция">
       {/* ── sticky viewport ── */}
       <div className="sticky top-0 h-screen overflow-hidden" style={{ perspective: "1200px" }}>
 
